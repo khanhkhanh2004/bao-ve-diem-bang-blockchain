@@ -10,9 +10,7 @@
 </p>
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge)
-![OpenCV](https://img.shields.io/badge/OpenCV-ComputerVision-green?style=for-the-badge)
-![YOLOv5](https://img.shields.io/badge/YOLOv5-ObjectDetection-red?style=for-the-badge)
-![Flask](https://img.shields.io/badge/Flask-WebServer-black?style=for-the-badge)
+
 
 </div>
 
