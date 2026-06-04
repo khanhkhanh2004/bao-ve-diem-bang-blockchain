@@ -13,7 +13,7 @@
 
 <div align="center">
 
-<img src="images/congnghesudung.png" alt="Công nghệ sử dụng" width="850"/>
+<img src="Poster1.jpg" width="850"/>
 
 </div>
 
