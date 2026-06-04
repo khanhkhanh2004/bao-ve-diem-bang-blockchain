@@ -6,7 +6,7 @@
 
 <p align="center">
   <img src="dnu_logo.png" alt="DaiNam University Logo" width="200"/>
-  <img src="images/LogoAIoTLab.png" alt="AIoTLab Logo" width="170"/>
+  <img src="khoa_cntt.png" alt="AIoTLab Logo" width="170"/>
 </p>
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge)
