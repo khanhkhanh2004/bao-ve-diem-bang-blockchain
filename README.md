@@ -1,12 +1,21 @@
 # 
 
-Đây là bản app “xịn” hơn:
+<h3 align="center">ỨNG DỤNG BLOCKCHAIN TRONG ĐẢM BẢO TÍNH TOÀN VẸN DỮ LIỆU ĐIỂM SINH VIÊN</h3>
 
-- Web: Flask
-- Database: SQLite
-- Blockchain: Ganache
-- Smart Contract: Solidity
-- Kết nối Python với blockchain: web3.py
+<div align="center">
+
+<p align="center">
+  <img src="images/logoDaiNam.png" alt="DaiNam University Logo" width="200"/>
+  <img src="images/LogoAIoTLab.png" alt="AIoTLab Logo" width="170"/>
+</p>
+
+![Python](https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge)
+![OpenCV](https://img.shields.io/badge/OpenCV-ComputerVision-green?style=for-the-badge)
+![YOLOv5](https://img.shields.io/badge/YOLOv5-ObjectDetection-red?style=for-the-badge)
+![Flask](https://img.shields.io/badge/Flask-WebServer-black?style=for-the-badge)
+
+</div>
+
 
 ## 1. Cài thư viện
 
