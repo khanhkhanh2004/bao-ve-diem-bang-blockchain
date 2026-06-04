@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Xác minh điểm - GradeChain Real</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Chi tiết & xác minh điểm</h1>
+        <p>So sánh dữ liệu database với hash lưu trên smart contract</p>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="alert {{ category }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% if blockchain_error %}
+    <div class="alert danger">
+        Lỗi blockchain: {{ blockchain_error }}
+    </div>
+    {% endif %}
+
+    <section class="card">
+        {% if is_valid %}
+            <div class="status good">✅ Dữ liệu hợp lệ — điểm hiện tại khớp hash mới nhất trên blockchain</div>
+        {% else %}
+            <div class="status bad">❌ Dữ liệu đã bị thay đổi — hash database không khớp blockchain</div>
+        {% endif %}
+
+        <div class="info-grid">
+            <p><b>ID:</b> {{ grade.id }}</p>
+            <p><b>Mã sinh viên:</b> {{ grade.student_id }}</p>
+            <p><b>Họ tên:</b> {{ grade.student_name }}</p>
+            <p><b>Môn học:</b> {{ grade.subject }}</p>
+            <p><b>Điểm hiện tại:</b> {{ grade.score }}</p>
+            <p><b>Học kỳ:</b> {{ grade.semester }}</p>
+        </div>
+
+        <h3>Hash mới nhất trên blockchain</h3>
+        <div class="hash-box">{{ latest_blockchain_hash }}</div>
+
+        <h3>Hash tính lại từ database</h3>
+        <div class="hash-box">{{ current_hash }}</div>
+    </section>
+
+    <section class="card two-cols">
+        <div>
+            <h2>Cập nhật điểm hợp lệ</h2>
+            <p class="note">
+                Có ghi transaction mới lên blockchain. Đây là cập nhật đúng quy trình.
+            </p>
+            <form action="/update/{{ grade.id }}" method="post" class="stack-form">
+                <input name="new_score" placeholder="Điểm mới, ví dụ 9.0" required>
+                <input name="reason" placeholder="Lý do cập nhật, ví dụ phúc khảo">
+                <button type="submit">Cập nhật hợp lệ</button>
+            </form>
+        </div>
+
+        <div>
+            <h2>Kiểm thử sửa lén database</h2>
+            <p class="note">
+                Phần này chỉ để demo bảo mật. App thật có thể ẩn chức năng này.
+            </p>
+            <form action="/tamper/{{ grade.id }}" method="post" class="stack-form">
+                <input name="fake_score" placeholder="Điểm sửa lén, ví dụ 10" required>
+                <button type="submit" class="danger-btn">Sửa database không ghi blockchain</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Lịch sử cập nhật trong database</h2>
+        {% if logs %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hành động</th>
+                        <th>Điểm cũ</th>
+                        <th>Điểm mới</th>
+                        <th>Lý do</th>
+                        <th>Tx hash</th>
+                        <th>Thời gian</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td>{{ log.action }}</td>
+                        <td>{{ log.old_score or "-" }}</td>
+                        <td>{{ log.new_score or "-" }}</td>
+                        <td>{{ log.reason }}</td>
+                        <td class="mono">{{ log.tx_hash[:18] }}...</td>
+                        <td>{{ log.created_at }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Chưa có log.</p>
+        {% endif %}
+    </section>
+
+    <section class="card">
+        <h2>Lịch sử hash đọc trực tiếp từ blockchain</h2>
+        {% if blockchain_history %}
+            {% for item in blockchain_history %}
+            <div class="timeline-item">
+                <p><b>Hash:</b></p>
+                <div class="hash-box">{{ item.data_hash }}</div>
+                <p><b>Block timestamp:</b> {{ item.timestamp }}</p>
+                <p><b>Sender:</b> {{ item.sender }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Chưa đọc được lịch sử blockchain.</p>
+        {% endif %}
+    </section>
+
+    <a class="btn" href="/">← Quay lại</a>
+</div>
+</body>
+</html>

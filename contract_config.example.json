@@ -1,0 +1,5 @@
+{
+  "ganache_url": "http://127.0.0.1:7545",
+  "contract_address": "PASTE_CONTRACT_ADDRESS_HERE",
+  "abi": []
+}

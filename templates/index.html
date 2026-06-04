@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>GradeChain Real</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>GradeChain Real</h1>
+        <p>Flask + SQLite + Solidity Smart Contract + Ganache</p>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="alert {{ category }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% if not config_exists %}
+    <div class="alert danger">
+        Chưa có contract_config.json. Hãy deploy smart contract bằng Remix rồi tạo file cấu hình theo README.
+    </div>
+    {% endif %}
+
+    <section class="card">
+        <h2>Nhập điểm sinh viên</h2>
+        <form action="/add" method="post" class="form-grid">
+            <input name="student_id" placeholder="Mã sinh viên, ví dụ SV001" required>
+            <input name="student_name" placeholder="Họ tên sinh viên" required>
+            <input name="subject" placeholder="Môn học" required>
+            <input name="score" placeholder="Điểm, ví dụ 8.5" required>
+            <input name="semester" placeholder="Học kỳ, ví dụ HK1 2025-2026" required>
+            <button type="submit">Lưu điểm + ghi blockchain</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <div class="section-title">
+            <h2>Danh sách điểm</h2>
+            <a href="/reset" class="reset">Reset </a>
+        </div>
+
+        {% if grades %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Mã SV</th>
+                    <th>Họ tên</th>
+                    <th>Môn</th>
+                    <th>Điểm</th>
+                    <th>Học kỳ</th>
+                    <th>Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for g in grades %}
+                <tr>
+                    <td>{{ g.id }}</td>
+                    <td>{{ g.student_id }}</td>
+                    <td>{{ g.student_name }}</td>
+                    <td>{{ g.subject }}</td>
+                    <td><b>{{ g.score }}</b></td>
+                    <td>{{ g.semester }}</td>
+                    <td><a class="btn" href="/detail/{{ g.id }}">Xem / xác minh</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="note">Chưa có điểm nào.</p>
+        {% endif %}
+    </section>
+
+    <section class="card">
+        <h2>Ý nghĩa hệ thống</h2>
+        <p>
+            Điểm sinh viên được lưu trong SQLite. Mỗi bản ghi điểm được tạo hash SHA-256,
+            sau đó hash này được ghi vào smart contract trên Ganache. Khi xác minh,
+            hệ thống lấy điểm hiện tại trong database, tạo lại hash và so sánh với hash mới nhất trên blockchain.
+        </p>
+    </section>
+</div>
+</body>
+</html>
