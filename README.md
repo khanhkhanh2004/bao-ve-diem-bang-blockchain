@@ -11,6 +11,12 @@
 </div>
 
 
+<div align="center">
+
+<img src="images/congnghesudung.png" alt="Công nghệ sử dụng" width="850"/>
+
+</div>
+
 ## 1. Cài thư viện
 
 ```bash
