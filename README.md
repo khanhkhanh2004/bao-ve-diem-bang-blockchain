@@ -100,7 +100,7 @@ Mở:
 http://127.0.0.1:5000
 ```
 
-## 6. Kịch bản demo
+## 6. Cách Sử Dụng
 
 ### Trường hợp 1: nhập điểm
 
@@ -141,10 +141,6 @@ Khi xác minh, hash tính từ database sẽ khác hash mới nhất trên block
 ```text
 Dữ liệu đã bị thay đổi
 ```
-
-## 7. Câu thuyết trình
-
-“Trong hệ thống này, điểm sinh viên được lưu trong cơ sở dữ liệu truyền thống để dễ tra cứu. Tuy nhiên, mỗi bản ghi điểm được tạo hash và ghi lên smart contract trên blockchain. Khi cần xác minh, hệ thống tạo lại hash từ dữ liệu hiện tại và so sánh với hash mới nhất trên blockchain. Nếu không khớp, điều đó chứng tỏ dữ liệu trong database đã bị chỉnh sửa trái phép.”
 
 ## 8. Lưu ý quan trọng
 
